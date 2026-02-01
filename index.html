@@ -62,13 +62,16 @@
         }
         /* --- Buttons --- */
         .btn {
-            background: #d98ca3;
+            display: inline-block;
+			background: #d98ca3;
             color: white;
-            padding: 12px 24px;
+            padding: 14px 28px;
             border: none;
-            border-radius: 25px;
+            border-radius: 30px;
             cursor: pointer;
             margin-top: 20px;
+			text-decoration: none;
+            font-weight: bold;
         }
         /* --- Galerie photo --- */
         .gallery {
@@ -225,15 +228,15 @@
     </section>
 
     <!-- RSVP -->
-    <section id="rsvp">
-        <h2>RSVP</h2>
-        <form action="#" method="POST">
-            <input type="text" name="name" placeholder="Votre nom complet">
-            <input type="email" name="email" placeholder="Votre e-mail">
-            <textarea name="message" rows="4" placeholder="Message ou infos supplémentaires"></textarea>
-            <button class="btn" type="submit">Je confirme ma présence</button>
-        </form>
-    </section>
+<section id="rsvp">
+    <h2>RSVP</h2>
+    <p>Merci de confirmer votre présence avant le 1er août 2026 💌</p>
+    <a href="https://forms.gle/sAzVyhtBrGAgcTY47"
+       class="btn"
+       target="_blank">
+        Je confirme ma présence
+    </a>
+</section>
 
     <!-- FOOTER -->
     <footer style="padding: 20px; background: #eee;">
