@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notre Mariage 💍</title>
+    <style>
+        /* --- Style global --- */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            background: #fafafa;
+            line-height: 1.6;
+        }
+        img {
+            max-width: 100%;
+            display: block;
+        }
+        section {
+            padding: 60px 20px;
+            text-align: center;
+        }
+        h1, h2, h3 {
+            margin: 0.5em 0;
+        }
+        /* --- Header --- */
+        header {
+            background-image: url('file:///D:/Photos/2017/2017/Chat/chat.jpg');
+			/* https://media.gettyimages.com/id/1342189104/fr/photo/vue-a%C3%A9rienne-du-champ-de-th%C3%A9.jpg?s=612x612&w=0&k=20&c=aXt3g4fpmmt2nAA6eBp1VBSN1V8XBNL_Kkwkzu3eJTA='); */
+            background-size: cover;
+            background-position: center;
+			    min-height: 30vh;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+			text-align: center;
+            color: white;
+            padding: 120px 20px;
+        }
+        header h1 {
+            font-size: 3em;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        }
+        /* --- Menu --- */
+        nav {
+            background: #fff;
+            position: sticky;
+            top: 0;
+            border-bottom: 1px solid #ddd;
+			    display: flex;
+			justify-content: center;   /* centre le menu horizontalement */
+				align-items: center;
+        }
+        nav a {
+            color: #444;
+            text-decoration: none;
+            padding: 15px 20px;
+            display: inline-block;
+            font-weight: bold;
+        }
+        /* --- Buttons --- */
+        .btn {
+            background: #d98ca3;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        /* --- Galerie photo --- */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            padding: 20px;
+        }
+        /* --- RSVP Form --- */
+        form input, form textarea {
+            width: 80%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        form button {
+            margin-top: 10px;
+        }
+		#countdown {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+    font-size: 1.2em;
+}
+
+.count-box {
+    background: rgba(0, 0, 0, 0.45);
+    padding: 15px 20px;
+    border-radius: 12px;
+    min-width: 90px;
+}
+
+.count-box span {
+    display: block;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.count-box small {
+    font-size: 0.8em;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+    </style>
+</head>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const weddingDate = new Date("September 05, 2026 15:00:00").getTime();
+        const countdown = document.getElementById("countdown");
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            if (distance < 0) {
+                countdown.innerHTML = "💖 C'est le grand jour ! 💖";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            countdown.innerHTML = `
+                <div class="count-box"><span>${days}</span><small>Jours</small></div>
+                <div class="count-box"><span>${hours}</span><small>Heures</small></div>
+                <div class="count-box"><span>${minutes}</span><small>Minutes</small></div>
+                <div class="count-box"><span>${seconds}</span><small>Secondes</small></div>
+            `;
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    });
+</script>
+<body>
+
+    <!-- HEADER + Compte à rebours -->
+    <header>
+        <h1>Marine & Antoine</h1>
+        <p>Nous nous marions le <strong>05 Septembre 2026</strong></p>
+        <div id="countdown"></div>
+    </header>
+
+    <!-- MENU -->
+    <nav>
+        <a href="#histoire">Notre histoire</a>
+        <a href="#infos">Infos</a>
+        <a href="#gallery">Galerie</a>
+        <a href="#rsvp">RSVP</a>
+    </nav>
+
+    <!-- NOTRE HISTOIRE -->
+    <section id="histoire">
+        <h2>Comment tout a commencé</h2>
+        <p>Il était une fois une princesse et un beau gosse ! <br>
+		Le beau gosse était beau, et la princesse c'est Marine ! ;) <br>
+		Racontez votre belle histoire d’amour 💖💖💖💖</p>
+    </section>
+
+    <!-- INFORMATIONS MARIAGE -->
+    <section id="infos">
+        <h2>Détails du mariage</h2>
+        <p><strong> 14h00 - Cérémonie civile</strong><br>
+		Mairie de Villedaigne<br>
+		2 rue de la Mairie 11200 Villedaigne </p>
+    <h3>Localisation de la mairie</h3>
+    <iframe
+        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d219.82998489243116!2d2.8616221!3d43.215385!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12b1b3fe14877c99%3A0xd7da9402729c93aa!2sMairie%20de%20Villedaigne!5e1!3m2!1sfr!2sfr!4v1768761880311!5m2!1sfr!2sfr"
+        width="400"
+        height="250"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+        <p><br><br><strong>15h00 - Réception</strong><br>
+		Château Grand Moulin<br>
+		6 avenue du Maréchal Galléni 11200 Lézignan-Corbières</p>
+		<h3>Localisation du Chateau Grand Moulin</h3>
+		<iframe
+        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3517.9813124794496!2d2.7642426!3d43.2032204!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12b1ca3fbd339a9d%3A0xb4f52e47bdc8cb0d!2sCh%C3%A2teau%20Grand%20Moulin!5e1!3m2!1sfr!2sfr!4v1768762360937!5m2!1sfr!2sfr"
+		width="400"
+        height="250"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+    </iframe>		
+        <p><br><br>Adresse, parking, hôtels proches, etc.</p>
+
+    </section>
+
+    <!-- GALERIE -->
+    <section id="gallery">
+        <h2>Photos & Moments</h2>
+        <div class="gallery">
+            <img src="photo1.jpg" alt="Photo couple">
+            <img src="photo2.jpg" alt="Photo engagement">
+            <img src="photo3.jpg" alt="Photo moment">
+            <img src="photo4.jpg" alt="Photo fun">
+        </div>
+    </section>
+
+    <!-- RSVP -->
+    <section id="rsvp">
+        <h2>RSVP</h2>
+        <form action="#" method="POST">
+            <input type="text" name="name" placeholder="Votre nom complet">
+            <input type="email" name="email" placeholder="Votre e-mail">
+            <textarea name="message" rows="4" placeholder="Message ou infos supplémentaires"></textarea>
+            <button class="btn" type="submit">Je confirme ma présence</button>
+        </form>
+    </section>
+
+    <!-- FOOTER -->
+    <footer style="padding: 20px; background: #eee;">
+        <p>Merci de faire partie de ce jour spécial 💕</p>
+    </footer>
+</body>
+</html>
