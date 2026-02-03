@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Site officiel du mariage de Marine et Antoine - 05 Septembre 2026">
-    <!-- Favicon standard (32x32) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Alice&display=swap" rel="stylesheet">
+	
+	<!-- Favicon standard (32x32) -->
     <link rel="icon" href="images/favicon-32x32.png" type="image/png" sizes="32x32">
 
     <!-- Favicon pour les onglets (16x16) -->
@@ -31,7 +35,7 @@
         /* --- Style global --- */
         body {
             margin: 0;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Alice', serif;
             color: #333;
             background: #fafafa;
             line-height: 1.6;
@@ -45,8 +49,14 @@
             padding: 60px 20px;
             text-align: center;
         }
+		/* Police pour les titres et les noms "Marine et Antoine" */
         h1, h2, h3 {
             margin: 0.5em 0;
+			font-family: 'Pinyon Script', cursive;
+        }
+		/* Police pour le reste du texte (déjà couvert par body */
+         p, a, nav a, .btn, footer p {
+    font-family: 'Alice', serif;
         }
         /* --- Header --- */
         header {
