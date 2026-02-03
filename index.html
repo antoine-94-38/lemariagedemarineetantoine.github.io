@@ -89,13 +89,16 @@
         /* --- Menu --- */
         nav {
             background: #fff;
-            position: relative;
-            top: 0;
+            position: sticky;
+            top: auto;
             border-bottom: 1px solid #ddd;
 		    display: flex;
 			justify-content: center;   /* centre le menu horizontalement */
 			align-items: center;
 			box-sizing: border-box; /* Inclut le padding dans la largeur totale */
+			width: 100%;
+			padding: 10px 0;
+			z-index: 10; /* Assure que le menu reste au-dessus des autres éléments */
         }
         nav a {
             color: #444;
@@ -103,6 +106,7 @@
             padding: 15px 20px;
             display: inline-block;
             font-weight: bold;
+			font-family: 'Alice', serif;
         }
         /* --- Buttons --- */
         .btn {
