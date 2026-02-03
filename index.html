@@ -89,12 +89,13 @@
         /* --- Menu --- */
         nav {
             background: #fff;
-            position: sticky;
+            position: relative;
             top: 0;
             border-bottom: 1px solid #ddd;
-			    display: flex;
+		    display: flex;
 			justify-content: center;   /* centre le menu horizontalement */
-				align-items: center;
+			align-items: center;
+			box-sizing: border-box; /* Inclut le padding dans la largeur totale */
         }
         nav a {
             color: #444;
