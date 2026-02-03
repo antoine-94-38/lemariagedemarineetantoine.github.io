@@ -202,6 +202,10 @@
     .count-box span {
         font-size: 1.5em;
     }
+	.locations-container {
+        flex-direction: column; /* Affiche les localisations l'une sous l'autre sur mobile */
+        align-items: center; /* Centre les éléments sur mobile */
+    }
     /* MENU */
     nav {
         flex-wrap: wrap;
@@ -227,6 +231,24 @@
     max-width: 100%;
     overflow-x: hidden;
 }
+	/* Conteneur des localisations */
+.locations-container {
+    display: flex;
+    justify-content: space-around; /* Espace les deux localisations uniformément */
+    align-items: flex-start; /* Aligne les éléments en haut */
+    flex-wrap: wrap; /* Permet aux éléments de passer à la ligne sur mobile */
+    gap: 20px; /* Espace entre les deux localisations */
+    margin: 20px 0;
+}
+
+/* Chaque localisation */
+.location {
+    flex: 1; /* Permet aux deux localisations de partager l'espace équitablement */
+    min-width: 300px; /* Largeur minimale pour chaque localisation */
+    max-width: 400px; /* Largeur maximale pour éviter qu'elles ne deviennent trop larges */
+    text-align: center; /* Centre le texte et les éléments */
+}
+	
     </style>
 </head>
 <script>
@@ -342,7 +364,10 @@ Des bisous et de l'amour 💖💖💖💖</p>
  <!-- LOGISTIQUE -->
 <section id="logistique">
     <h2>Logistique</h2>
-<p><br><br>Adresse, parking, hôtels proches, etc.</p>
+	<p><br><br>Adresse, parking, hôtels proches, etc.</p>
+	<!-- Conteneur pour les deux localisations -->
+    <div class="locations-container">
+		 <div class="location">
 		  <h3>Localisation de la mairie</h3>
 	     <p>Mairie de Villedaigne<br>
 		2 rue de la Mairie 11200 Villedaigne </p>
@@ -355,7 +380,8 @@ Des bisous et de l'amour 💖💖💖💖</p>
         loading="lazy"
         referrerpolicy="no-referrer-when-downgrade">
     </iframe>
-	
+	</div>
+	<div class="location">
 	<h3>Localisation du Chateau Grand Moulin</h3>
 	<p>Château Grand Moulin<br>
 		6 avenue du Maréchal Galliéni 11200 Lézignan-Corbières</p>
@@ -368,6 +394,8 @@ Des bisous et de l'amour 💖💖💖💖</p>
         loading="lazy"
         referrerpolicy="no-referrer-when-downgrade">
     </iframe>
+		</div>
+    </div>
 	</section>
 
 	
