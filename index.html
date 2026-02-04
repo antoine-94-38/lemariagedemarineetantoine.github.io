@@ -129,9 +129,22 @@
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             gap: 10px;
             padding: 20px;
+			justify-content: center;
         }
+		.gallery img {
+   	   border-radius: 10px;
+ 	   transition: transform 0.3s ease, box-shadow 0.3s ease;
+	   max-width: 100%;
+  	   display: block;
+ 	   margin: 0 auto; /* Centre chaque image individuellement */
+		}
+
+	.gallery img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+		}
         /* --- RSVP Form --- */
-        form input, form textarea {
+   /*   form input, form textarea {
             width: 80%;
             padding: 10px;
             margin: 8px 0;
@@ -140,7 +153,7 @@
         }
         form button {
             margin-top: 10px;
-        }
+        } */
 		#countdown {
     display: flex;
     gap: 15px;
@@ -165,15 +178,6 @@
     font-size: 0.8em;
     letter-spacing: 1px;
     text-transform: uppercase;
-}
-.gallery img {
-    border-radius: 10px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.gallery img:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
 /* =========================
    RESPONSIVE MOBILE
