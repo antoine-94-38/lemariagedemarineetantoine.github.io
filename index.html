@@ -125,7 +125,8 @@
         .gallery {
             width : 100%;
 			box-sizing: border-box;
-			display: grid;
+			display: flex;
+			flex-wrap:wrap;
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             gap: 10px;
             padding: 20px;
@@ -138,7 +139,6 @@
   	   display: block;
  	   margin: 0 auto; /* Centre chaque image individuellement */
 		}
-
 	.gallery img:hover {
     transform: scale(1.05);
     box-shadow: 0 10px 25px rgba(0,0,0,0.3);
