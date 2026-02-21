@@ -86,6 +86,10 @@
     margin: 10px 0 20px 0;
     font-family: 'Alice', serif;
     }
+       /* Masque le saut de ligne sur les écrans larges */
+        .mobile-break br {
+            display: none;
+        }
         /* --- Menu --- */
         nav {
             background: #fff;
@@ -207,6 +211,9 @@
     header p {
         font-size: 1.8em;
     }
+   .mobile-break br {
+        display: block;
+            }
     /* COUNTDOWN */
     #countdown {
         flex-wrap: wrap;
@@ -309,7 +316,7 @@ html {
     <!-- HEADER + Compte à rebours -->
     <header>
         <h1>Marine & Antoine</h1>
-        <p>Nous nous marions le <strong>05 Septembre 2026</strong></p>
+        <p>Nous nous marions le <span class="mobile-break"><br></span><strong>05 Septembre 2026</strong></p>
         <div id="countdown"></div>
     </header>
 
