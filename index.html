@@ -197,6 +197,20 @@
     letter-spacing: 1px;
     text-transform: uppercase;
 }
+.countdown-finished {
+    font-size: 3em; /* Taille très grande */
+    text-align: center; /* Centre le texte */
+    color: #d98ca3; /* Couleur romantique (rose) */
+    font-weight: bold; /* Texte en gras */
+    margin: 20px 0;
+    animation: pulse 2s infinite; /* Animation pour attirer l'attention */
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
 /* =========================
    RESPONSIVE MOBILE
    ========================= */
@@ -289,12 +303,12 @@ html {
         function updateCountdown() {
             const now = new Date().getTime();
             const distance = weddingDate - now;
-
+			
             if (distance < 0) {
-                countdown.innerHTML = "💖 C'est le grand jour ! 💖";
-                return;
+               countdown.innerHTML = "💖 C'est le grand jour ! 💖";
+               countdown.classList.add("countdown-finished");
+           return;
             }
-
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
