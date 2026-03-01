@@ -65,12 +65,11 @@
             cursor: default; /* retire l'icone de souris cliquable */
         }
 
-        /* when opened, hide title/subtitle and change page background */
+        /* when opened, change page background and hide subtitle */
         body.opened {
             background: white;
         }
 
-        .container.opened h1,
         .container.opened .subtitle {
             display: none;
         }
@@ -100,6 +99,11 @@
             border-color: transparent;
             box-shadow: none;
             background: transparent;
+        }
+
+        /* also hide outline of envelope wrapper when opened */
+        .envelope-wrapper.opened {
+            background: none;
         }
 
         /* Avant de l'enveloppe */
@@ -515,10 +519,18 @@
             envelope.classList.add('opened');
             // add opened class to wrapper to change cursor and hide click affordance
             wrapper.classList.add('opened');
-            // add class to container to hide header text
+            // add class to container to hide subtitle text
             document.querySelector('.container').classList.add('opened');
             // change body background to white
             document.body.classList.add('opened');
++            // move card outside of envelope so frame disappears
++            const card = document.querySelector('.card');
++            if (card && wrapper.parentNode) {
++                wrapper.parentNode.appendChild(card);
++            }
++            // hide the envelope wrapper itself
++            wrapper.style.opacity = '0';
++            wrapper.style.pointerEvents = 'none';
             createConfetti();
             // remove click handler so it can't be toggled back
             wrapper.onclick = null;
