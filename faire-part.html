@@ -92,15 +92,21 @@
             height: auto;
         }
 
-        /* hide orange border/shadow when opened */
+        /* hide orange border/shadow when opened, fade out the envelope surfaces but keep the card inside visible */
         .envelope-wrapper.opened .envelope-front,
-        .envelope-wrapper.opened .envelope-back,
         .envelope-wrapper.opened .envelope {
             border-color: transparent;
             box-shadow: none;
             background: transparent;
             opacity: 0;
             transition: opacity 0.6s ease;
+        }
+
+        /* make the back transparent too, but do not change its opacity so the card it contains remains shown */
+        .envelope-wrapper.opened .envelope-back {
+            border-color: transparent;
+            box-shadow: none;
+            background: transparent;
         }
 
         /* when opened keep card full size so no gap/frame shows */
@@ -532,11 +538,9 @@
             // change body background to white
             document.body.classList.add('opened');
             // envelope elements will fade, wrapper remains to keep card positioned
-            // after fade complete hide the envelope-back entirely to remove any residual margins
-            setTimeout(() => {
-                const back = document.querySelector('.envelope-back');
-                if (back) back.style.visibility = 'hidden';
-            }, 600);
+            // we no longer hide the envelope-back itself because it contains the card –
+            // making it invisible was masking the faire‑part text.
+            // if desired we could later remove the entire wrapper instead.
             createConfetti();
             // remove click handler so it can't be toggled back
             wrapper.onclick = null;
