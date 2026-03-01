@@ -106,13 +106,15 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: auto;
+            overflow: hidden; /* hide scrollbars when PDF scales */
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            padding: 20px;
+            padding: 0; /* remove padding so PDF fills fully */
         }
 
         .faire-part-content {
             text-align: center;
+            width: 100%;
+            height: 100%;
         }
 
         .faire-part-content h2 {
@@ -230,10 +232,12 @@
                 <div class="envelope-back">
                     <div class="faire-part-content">
                         <!-- PDF intégrée directement dans l'enveloppe -->
-                        <iframe src="images/Invitation Mariage Minimaliste Vert avec lien.pdf" 
+                        <object data="images/Invitation Mariage Minimaliste Vert avec lien.pdf" 
+                                type="application/pdf" 
                                 width="100%" height="100%" 
-                                style="border:none;"
-                                title="Faire-part PDF"></iframe>
+                                style="border:none;">
+                            <p>Votre navigateur ne peut pas afficher le PDF. <a href="images/Invitation Mariage Minimaliste Vert avec lien.pdf" target="_blank">Télécharger le faire-part</a>.</p>
+                        </object>
                     </div>
                 </div>
             </div>
@@ -245,7 +249,7 @@
     <script>
         function createConfetti() {
             const colors = ['#f94144','#f3722c','#f9c74f','#90be6d','#43aa8b','#577590'];
-            for (let i = 0; i < 100; i++) {
+            for (let i = 0; i < 200; i++) { // plus de pièces
                 const conf = document.createElement('div');
                 conf.classList.add('confetti');
                 conf.style.backgroundColor = colors[Math.floor(Math.random()*colors.length)];
