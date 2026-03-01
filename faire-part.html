@@ -48,7 +48,10 @@
         .envelope-wrapper {
             perspective: 1000px;
             cursor: pointer;
+            }
         }
+            .envelope-wrapper.opened {
+                cursor: default; /* retire l'icone de souris cliquable */
 
         .envelope {
             width: 300px;
@@ -200,7 +203,15 @@
             display: flex;
             flex-direction: column;
             align-items: flex-start;
+            text-align: left;
             gap: 12px;
+        }
+
+        .paper-left h3 {
+            font-family: 'Pinyon Script', cursive;
+            color: #487253;
+            font-size: 36px;
+            margin: 6px 0 0 0;
         }
 
         .paper-right {
@@ -218,6 +229,7 @@
             color: #487253; /* même vert */
             line-height: 1.6;
             font-size: 18px;
+            text-align: left;
         }
 
         .qr {
@@ -394,8 +406,7 @@
                                             <h2>Marine & Antoine</h2>
                                             <div class="date">05 Septembre 2026</div>
                                             <div class="message">
-                                                <p>Nous avons la joie de vous inviter à célébrer notre union au Château Grand Moulin, Villedaigne.
-                                                Rejoignez-nous pour la cérémonie et la réception au Château Grand Moulin.</p>
+                                                <p>Nous avons la joie de vous inviter à célébrer notre union au Château Grand Moulin, Villedaigne.</p>
                                             </div>
 
                                             <h3 style="font-family: 'Pinyon Script', cursive; color:#487253; margin:6px 0 0 0;">Programme</h3>
@@ -406,12 +417,14 @@
                                             </ul>
 
                                             <p>Merci de compléter notre questionnaire afin de
-                                            nous confirmer votre venue avant le 5 avril :</p>
+                                            nous confirmer votre venue avant le 5 avril.</p>
                                         </div>
 
                                         <div class="paper-right">
-                                            <img class="qr" src="images/QRcode-site.png" alt="QR code vers le site">
-                                            <div class="site-link"><a href="https://www.lemariagedemarineetantoine.fr/" target="_blank">https://www.lemariagedemarineetantoine.fr/</a></div>
+                                                <a href="https://www.lemariagedemarineetantoine.fr/" target="_blank" aria-label="Ouvrir le site">
+                                                   <img class="qr" src="images/QRcode-site.png" alt="QR code vers le site">
+                                                </a>
+                                                <div class="site-link"><a href="https://www.lemariagedemarineetantoine.fr/" target="_blank">https://www.lemariagedemarineetantoine.fr/</a></div>
                                         </div>
                                     </div>
                                 </div>
@@ -445,9 +458,13 @@
             const wrapper = document.querySelector('.envelope-wrapper');
             const envelope = document.getElementById('envelope');
             envelope.classList.add('opened');
+            // add opened class to wrapper to change cursor and hide click affordance
+            wrapper.classList.add('opened');
             createConfetti();
             // remove click handler so it can't be toggled back
             wrapper.onclick = null;
+            // also ensure cursor style is default
+            wrapper.style.cursor = 'default';
         }
     </script>
 </body>
