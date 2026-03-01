@@ -76,8 +76,11 @@
 
         .envelope.opened {
             transform: rotateX(180deg);
-            width: 80vw; /* agrandi */
-            height: 60vh;
+            /* use min dimensions so the envelope can grow to fit content */
+            min-width: 80vw; /* agrandi */
+            min-height: 60vh;
+            width: auto;
+            height: auto;
         }
 
         /* Avant de l'enveloppe */
@@ -156,9 +159,9 @@
         /* Papier interne avec ratio A3 (landscape) */
         .paper {
             width: 92%;
-            height: 88%;
+            height: auto; /* let paper grow with content */
             max-width: 1200px;
-            max-height: 82vh;
+            max-height: none;
             background: linear-gradient(180deg,#ffffff,#fbfbfb);
             border: 6px solid #f1efe9;
             box-shadow: 0 6px 18px rgba(0,0,0,0.08);
@@ -340,15 +343,18 @@
                 font-size: 1em;
             }
 
-            /* Envelope larger on small screens so paper is readable */
+            /* Envelope before click: smaller on mobile to avoid huge empty frame */
             .envelope {
-                width: 90vw;
-                height: 70vh;
+                width: 200px;
+                height: 140px;
             }
 
+            /* When opened on mobile, expand but allow growth to fit content */
             .envelope.opened {
-                width: 94vw;
-                height: 82vh;
+                min-width: 94vw;
+                min-height: 70vh;
+                width: auto;
+                height: auto;
             }
 
             .envelope-front::before {
