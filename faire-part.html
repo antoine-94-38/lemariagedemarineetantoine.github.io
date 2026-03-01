@@ -61,6 +61,8 @@
 
         .envelope.opened {
             transform: rotateX(180deg);
+            width: 80vw; /* agrandi */
+            height: 60vh;
         }
 
         /* Avant de l'enveloppe */
@@ -168,6 +170,21 @@
             display: none;
         }
 
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: red;
+            pointer-events: none;
+            animation: fall 3s linear forwards;
+            opacity: 0.9;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(120vh) rotate(360deg); opacity: 0; }
+        }
+
         /* Responsive */
         @media (max-width: 600px) {
             h1 {
@@ -202,7 +219,7 @@
         <h1>Marine & Antoine</h1>
         <p class="subtitle">Cliquez sur l'enveloppe pour découvrir notre faire-part</p>
 
-        <div class="envelope-wrapper" onclick="toggleEnvelope()">
+        <div class="envelope-wrapper" onclick="openEnvelopeOnce()">
             <div class="envelope" id="envelope">
                 <!-- Avant de l'enveloppe -->
                 <div class="envelope-front">
@@ -226,9 +243,28 @@
     </div>
 
     <script>
-        function toggleEnvelope() {
+        function createConfetti() {
+            const colors = ['#f94144','#f3722c','#f9c74f','#90be6d','#43aa8b','#577590'];
+            for (let i = 0; i < 100; i++) {
+                const conf = document.createElement('div');
+                conf.classList.add('confetti');
+                conf.style.backgroundColor = colors[Math.floor(Math.random()*colors.length)];
+                conf.style.left = Math.random() * 100 + 'vw';
+                conf.style.top = Math.random() * -20 + 'vh';
+                conf.style.transform = 'rotate(' + Math.random()*360 + 'deg)';
+                document.body.appendChild(conf);
+                // remove after animation
+                setTimeout(() => document.body.removeChild(conf), 3000);
+            }
+        }
+
+        function openEnvelopeOnce() {
+            const wrapper = document.querySelector('.envelope-wrapper');
             const envelope = document.getElementById('envelope');
-            envelope.classList.toggle('opened');
+            envelope.classList.add('opened');
+            createConfetti();
+            // remove click handler so it can't be toggled back
+            wrapper.onclick = null;
         }
     </script>
 </body>
