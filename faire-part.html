@@ -519,6 +519,11 @@
             envelope.classList.add('opened');
             // add opened class to wrapper to change cursor and hide click affordance
             wrapper.classList.add('opened');
+            // move card outside wrapper immediately so it stays visible
+            const card = document.querySelector('.card');
+            if (card && wrapper.parentNode) {
+                wrapper.parentNode.appendChild(card);
+            }
             // add class to container to hide subtitle text
             document.querySelector('.container').classList.add('opened');
             // change body background to white
