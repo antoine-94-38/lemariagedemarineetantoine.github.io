@@ -121,7 +121,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: auto; /* allow scrolling when content is larger than the container */
+            overflow: visible; /* no internal scroll; let page scroll instead */
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             padding: 0; /* remove padding so PDF fills fully */
         }
@@ -158,7 +158,7 @@
             width: 92%;
             height: 88%;
             max-width: 1200px;
-            max-height: 820px;
+            max-height: 82vh;
             background: linear-gradient(180deg,#ffffff,#fbfbfb);
             border: 6px solid #f1efe9;
             box-shadow: 0 6px 18px rgba(0,0,0,0.08);
@@ -169,8 +169,7 @@
             align-items: center;
             justify-content: center;
             gap: 18px;
-            overflow: auto; /* enable scrolling inside the paper */
-            -webkit-overflow-scrolling: touch;
+            overflow: visible; /* no inner scrolling */
         }
 
         .paper h2 {
