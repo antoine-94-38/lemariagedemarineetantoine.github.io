@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Faire-part numérique du mariage de Marine et Antoine">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Alice&display=swap" rel="stylesheet">
+    <title>Faire-part - Marine & Antoine</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Alice', serif;
+            background: linear-gradient(135deg, #e8e8e8 0%, #f5f5f5 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #487253;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Pinyon Script', cursive;
+            font-size: 3em;
+            color: #487253;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            margin-bottom: 40px;
+            color: #666;
+        }
+
+        /* Enveloppe */
+        .envelope-wrapper {
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .envelope {
+            width: 300px;
+            height: 200px;
+            margin: 0 auto;
+            position: relative;
+            transition: all 0.6s ease;
+            transform-style: preserve-3d;
+        }
+
+        .envelope.opened {
+            transform: rotateX(180deg);
+        }
+
+        /* Avant de l'enveloppe */
+        .envelope-front {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #f5e6d3 0%, #ead5c1 100%);
+            border: 3px solid #d4a574;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            backface-visibility: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .envelope-front::before {
+            content: "✉️";
+            font-size: 4em;
+        }
+
+        .envelope-front p {
+            position: absolute;
+            bottom: 15px;
+            font-size: 0.9em;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Arrière de l'enveloppe (le faire-part) */
+        .envelope-back {
+            width: 100%;
+            height: 100%;
+            background: white;
+            border: 3px solid #d4a574;
+            border-radius: 10px;
+            position: absolute;
+            backface-visibility: hidden;
+            transform: rotateX(180deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            padding: 20px;
+        }
+
+        .faire-part-content {
+            text-align: center;
+        }
+
+        .faire-part-content h2 {
+            font-family: 'Pinyon Script', cursive;
+            font-size: 2.5em;
+            color: #487253;
+            margin-bottom: 10px;
+        }
+
+        .faire-part-content p {
+            font-size: 0.95em;
+            line-height: 1.6;
+            color: #487253;
+            margin-bottom: 10px;
+        }
+
+        .faire-part-pdf {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .pdf-btn {
+            display: inline-block;
+            background: #6582a6;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            font-size: 0.9em;
+        }
+
+        .pdf-btn:hover {
+            background: #4a5a7a;
+        }
+
+        .hint {
+            margin-top: 30px;
+            font-size: 1.1em;
+            color: #999;
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50%, 100% { opacity: 1; }
+            25%, 75% { opacity: 0.5; }
+        }
+
+        .envelope.opened ~ .hint {
+            display: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .subtitle {
+                font-size: 1em;
+            }
+
+            .envelope {
+                width: 250px;
+                height: 170px;
+            }
+
+            .envelope-front::before {
+                font-size: 3em;
+            }
+
+            .faire-part-content h2 {
+                font-size: 1.8em;
+            }
+
+            .faire-part-content p {
+                font-size: 0.85em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Marine & Antoine</h1>
+        <p class="subtitle">Cliquez sur l'enveloppe pour découvrir notre faire-part</p>
+
+        <div class="envelope-wrapper" onclick="toggleEnvelope()">
+            <div class="envelope" id="envelope">
+                <!-- Avant de l'enveloppe -->
+                <div class="envelope-front">
+                    <p>Cliquez pour ouvrir</p>
+                </div>
+
+                <!-- Arrière de l'enveloppe -->
+                <div class="envelope-back">
+                    <div class="faire-part-content">
+                        <h2>Notre Mariage</h2>
+                        <p><strong>05 Septembre 2026</strong></p>
+                        <p>Vous êtes cordialement invités à célébrer notre union</p>
+                        
+                        <div class="faire-part-pdf">
+                            <a href="images/Invitation Mariage Minimaliste Vert avec lien.pdf" 
+                               class="pdf-btn" 
+                               target="_blank"
+                               download>
+                                📄 Télécharger le faire-part
+                            </a>
+                            <a href="images/Invitation Mariage Minimaliste Vert avec lien.pdf" 
+                               class="pdf-btn" 
+                               target="_blank">
+                                👁️ Voir le faire-part
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p class="hint">↟ Ouvre l'enveloppe ↟</p>
+    </div>
+
+    <script>
+        function toggleEnvelope() {
+            const envelope = document.getElementById('envelope');
+            envelope.classList.toggle('opened');
+        }
+    </script>
+</body>
+</html>
