@@ -83,6 +83,13 @@
             height: auto;
         }
 
+        /* hide orange border and shadow when opened */
+        .envelope-wrapper.opened .envelope-front,
+        .envelope-wrapper.opened .envelope-back {
+            border-color: transparent;
+            box-shadow: none;
+        }
+
         /* Avant de l'enveloppe */
         .envelope-front {
             width: 100%;
@@ -309,12 +316,19 @@
             animation: blink 2s infinite;
         }
 
+        /* prevent scrolling before envelope is opened */
+        .no-scroll-before-open {
+            overflow: hidden;
+            height: 100vh;
+        }
+
         @keyframes blink {
             0%, 50%, 100% { opacity: 1; }
             25%, 75% { opacity: 0.5; }
         }
 
-        .envelope.opened ~ .hint {
+        .envelope.opened ~ .hint,
+        .envelope-wrapper.opened ~ .hint {
             display: none;
         }
 
@@ -478,6 +492,11 @@
             }
         }
 
+        // disable page scroll until envelope is opened
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.classList.add('no-scroll-before-open');
+        });
+
         function openEnvelopeOnce() {
             const wrapper = document.querySelector('.envelope-wrapper');
             const envelope = document.getElementById('envelope');
@@ -489,6 +508,8 @@
             wrapper.onclick = null;
             // also ensure cursor style is default
             wrapper.style.cursor = 'default';
+            // allow page scroll again
+            document.body.classList.remove('no-scroll-before-open');
         }
     </script>
 </body>
