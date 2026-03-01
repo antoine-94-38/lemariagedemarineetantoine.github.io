@@ -73,6 +73,10 @@
         .container.opened .subtitle {
             display: none;
         }
+        /* also hide title once envelope is open */
+        .container.opened h1 {
+            display: none;
+        }
 
         .envelope {
             width: 300px;
@@ -547,6 +551,15 @@
             // making it invisible was masking the faire‑part text.
             // if desired we could later remove the entire wrapper instead.
             createConfetti();
+            // detach the card content so it stays visible independently
+            const content = document.querySelector('.faire-part-content');
+            if (content) {
+                document.querySelector('.container').appendChild(content);
+            }
+            // after the fade animation, hide the now-empty wrapper to remove any frame
+            setTimeout(() => {
+                wrapper.style.display = 'none';
+            }, 600);
             // remove click handler so it can't be toggled back
             wrapper.onclick = null;
             // also ensure cursor style is default
