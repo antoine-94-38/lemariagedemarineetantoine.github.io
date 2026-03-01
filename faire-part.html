@@ -121,7 +121,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden; /* hide scrollbars when PDF scales */
+            overflow: auto; /* allow scrolling when content is larger than the container */
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             padding: 0; /* remove padding so PDF fills fully */
         }
@@ -169,6 +169,8 @@
             align-items: center;
             justify-content: center;
             gap: 18px;
+            overflow: auto; /* enable scrolling inside the paper */
+            -webkit-overflow-scrolling: touch;
         }
 
         .paper h2 {
@@ -365,6 +367,11 @@
             /* Paper adjustments */
             .paper {
                 padding: 20px;
+            }
+
+            /* Date smaller on mobile to improve layout */
+            .paper .date {
+                font-size: 28px;
             }
 
             .paper-grid {
