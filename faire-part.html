@@ -183,6 +183,56 @@
             text-decoration: none;
         }
 
+        /* Deux colonnes dans la carte : contenu + QR */
+        .paper-grid {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            gap: 24px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .paper-left {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .paper-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .paper .programme {
+            list-style: none;
+            padding-left: 0;
+            color: #4a4a4a;
+            line-height: 1.6;
+            font-size: 18px;
+        }
+
+        .qr {
+            width: 180px;
+            height: 180px;
+            border: 8px solid #fff;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+            background: white;
+        }
+
+        .site-link a {
+            color: #35613f;
+            font-weight: 700;
+            text-decoration: none;
+            word-break: break-all;
+        }
+
         .faire-part-content h2 {
             font-family: 'Pinyon Script', cursive;
             font-size: 2.5em;
@@ -263,9 +313,15 @@
                 font-size: 1em;
             }
 
+            /* Envelope larger on small screens so paper is readable */
             .envelope {
-                width: 250px;
-                height: 170px;
+                width: 90vw;
+                height: 70vh;
+            }
+
+            .envelope.opened {
+                width: 94vw;
+                height: 82vh;
             }
 
             .envelope-front::before {
@@ -273,11 +329,41 @@
             }
 
             .faire-part-content h2 {
-                font-size: 1.8em;
+                font-size: 1.6em;
             }
 
             .faire-part-content p {
-                font-size: 0.85em;
+                font-size: 0.95em;
+            }
+
+            /* Paper adjustments */
+            .paper {
+                padding: 20px;
+            }
+
+            .paper-grid {
+                flex-direction: column;
+                gap: 12px;
+                align-items: center;
+                justify-content: flex-start;
+            }
+
+            .paper-left {
+                align-items: center;
+                text-align: center;
+            }
+
+            .paper-right {
+                order: 2;
+            }
+
+            .qr {
+                width: 120px;
+                height: 120px;
+            }
+
+            .paper .message {
+                font-size: 16px;
             }
         }
     </style>
@@ -301,14 +387,33 @@
                         <div class="card" role="document" aria-label="Faire-part">
                             <div class="card-inner">
                                 <div class="paper">
-                                    <h2>Marine & Antoine</h2>
-                                    <div class="date">05 Septembre 2026</div>
-                                    <div class="message">
-                                        <p>Nous avons la joie de vous inviter à célébrer notre union.
-                                        Rejoignez-nous pour la cérémonie et la réception au Château Grand Moulin.</p>
-                                        <p>Vos présences et sourires sont le plus beau des cadeaux.</p>
+                                    <div class="paper-grid">
+                                        <div class="paper-left">
+                                            <h2>Marine & Antoine</h2>
+                                            <div class="date">05 Septembre 2026</div>
+                                            <div class="message">
+                                                <p>Nous avons la joie de vous inviter à célébrer notre union.
+                                                Rejoignez-nous pour la cérémonie et la réception au Château Grand Moulin.</p>
+                                                <p>Vos présences et sourires sont le plus beau des cadeaux.</p>
+                                            </div>
+
+                                            <h3 style="font-family: 'Pinyon Script', cursive; color:#487253; margin:6px 0 0 0;">Programme</h3>
+                                            <ul class="programme">
+                                                <li><strong>Samedi 14h :</strong> Cérémonie civile à la Mairie de Villedaigne.</li>
+                                                <li><strong>Samedi 15h :</strong> Cérémonie laïque et les festivités au Château Grand Moulin.</li>
+                                                <li><strong>Dimanche 11h :</strong> Brunch.</li>
+                                            </ul>
+
+                                            <p>Merci de compléter notre questionnaire afin de
+                                            nous confirmer votre venue avant le 5 avril :</p>
+                                            <div class="link">Pour confirmer : <a href="https://forms.gle/sAzVyhtBrGAgcTY47" target="_blank">RSVP</a></div>
+                                        </div>
+
+                                        <div class="paper-right">
+                                            <img class="qr" src="https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl=https://lemariagedemarineetantoine.github.io/" alt="QR code vers le site">
+                                            <div class="site-link"><a href="https://lemariagedemarineetantoine.github.io/" target="_blank">https://lemariagedemarineetantoine.github.io/</a></div>
+                                        </div>
                                     </div>
-                                    <div class="link">Pour confirmer votre présence : <a href="https://forms.gle/sAzVyhtBrGAgcTY47" target="_blank">RSVP</a></div>
                                 </div>
                             </div>
                         </div>
