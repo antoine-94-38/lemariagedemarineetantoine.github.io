@@ -92,7 +92,7 @@
             height: auto;
         }
 
-        /* hide orange border/shadow and wipe envelopes away when opened */
+        /* hide orange border/shadow when opened */
         .envelope-wrapper.opened .envelope-front,
         .envelope-wrapper.opened .envelope-back,
         .envelope-wrapper.opened .envelope {
@@ -523,14 +523,10 @@
             document.querySelector('.container').classList.add('opened');
             // change body background to white
             document.body.classList.add('opened');
-+            // move card outside of envelope so frame disappears
-+            const card = document.querySelector('.card');
-+            if (card && wrapper.parentNode) {
-+                wrapper.parentNode.appendChild(card);
-+            }
-+            // hide the envelope wrapper itself
-+            wrapper.style.opacity = '0';
-+            wrapper.style.pointerEvents = 'none';
++            // hide the envelope wrapper after animation so frame disappears
++            setTimeout(() => {
++                wrapper.style.display = 'none';
++            }, 600);
             createConfetti();
             // remove click handler so it can't be toggled back
             wrapper.onclick = null;
