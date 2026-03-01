@@ -65,6 +65,16 @@
             cursor: default; /* retire l'icone de souris cliquable */
         }
 
+        /* when opened, hide title/subtitle and change page background */
+        body.opened {
+            background: white;
+        }
+
+        .container.opened h1,
+        .container.opened .subtitle {
+            display: none;
+        }
+
         .envelope {
             width: 300px;
             height: 200px;
@@ -83,11 +93,13 @@
             height: auto;
         }
 
-        /* hide orange border and shadow when opened */
+        /* hide orange border/shadow and wipe envelopes away when opened */
         .envelope-wrapper.opened .envelope-front,
-        .envelope-wrapper.opened .envelope-back {
+        .envelope-wrapper.opened .envelope-back,
+        .envelope-wrapper.opened .envelope {
             border-color: transparent;
             box-shadow: none;
+            background: transparent;
         }
 
         /* Avant de l'enveloppe */
@@ -503,6 +515,10 @@
             envelope.classList.add('opened');
             // add opened class to wrapper to change cursor and hide click affordance
             wrapper.classList.add('opened');
+            // add class to container to hide header text
+            document.querySelector('.container').classList.add('opened');
+            // change body background to white
+            document.body.classList.add('opened');
             createConfetti();
             // remove click handler so it can't be toggled back
             wrapper.onclick = null;
