@@ -92,9 +92,9 @@
             height: auto;
         }
 
-        /* hide orange border/shadow when opened, fade out the envelope surfaces but keep the card inside visible */
-        .envelope-wrapper.opened .envelope-front,
-        .envelope-wrapper.opened .envelope {
+        /* hide orange border/shadow when opened — fade out only the front flap
+           so that the back and its card remain visible */
+        .envelope-wrapper.opened .envelope-front {
             border-color: transparent;
             box-shadow: none;
             background: transparent;
@@ -102,7 +102,12 @@
             transition: opacity 0.6s ease;
         }
 
-        /* make the back transparent too, but do not change its opacity so the card it contains remains shown */
+        /* envelope element itself stays opaque so children show, but remove outline */
+        .envelope-wrapper.opened {
+            /* nothing else needed here yet */
+        }
+
+        /* make the back transparent also without altering its opacity */
         .envelope-wrapper.opened .envelope-back {
             border-color: transparent;
             box-shadow: none;
