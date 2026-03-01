@@ -523,10 +523,10 @@
             document.querySelector('.container').classList.add('opened');
             // change body background to white
             document.body.classList.add('opened');
-+            // hide the envelope wrapper after animation so frame disappears
-+            setTimeout(() => {
-+                wrapper.style.display = 'none';
-+            }, 600);
+            // hide the envelope wrapper after animation so frame disappears
+            setTimeout(() => {
+                wrapper.style.display = 'none';
+            }, 600);
             createConfetti();
             // remove click handler so it can't be toggled back
             wrapper.onclick = null;
