@@ -99,6 +99,14 @@
             border-color: transparent;
             box-shadow: none;
             background: transparent;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+
+        /* when opened keep card full size so no gap/frame shows */
+        .envelope-wrapper.opened .card {
+            width: 100%;
+            height: 100%;
         }
 
         /* also hide outline of envelope wrapper when opened */
@@ -519,18 +527,15 @@
             envelope.classList.add('opened');
             // add opened class to wrapper to change cursor and hide click affordance
             wrapper.classList.add('opened');
-            // move card outside wrapper immediately so it stays visible
-            const card = document.querySelector('.card');
-            if (card && wrapper.parentNode) {
-                wrapper.parentNode.appendChild(card);
-            }
             // add class to container to hide subtitle text
             document.querySelector('.container').classList.add('opened');
             // change body background to white
             document.body.classList.add('opened');
-            // hide the envelope wrapper after animation so frame disappears
+            // envelope elements will fade, wrapper remains to keep card positioned
+            // after fade complete hide the envelope-back entirely to remove any residual margins
             setTimeout(() => {
-                wrapper.style.display = 'none';
+                const back = document.querySelector('.envelope-back');
+                if (back) back.style.visibility = 'hidden';
             }, 600);
             createConfetti();
             // remove click handler so it can't be toggled back
