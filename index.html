@@ -46,7 +46,7 @@
 			height: auto;
         }
         section {
-            padding: 60px 20px;
+            padding: 36px 20px;
             text-align: center;
         }
 		/* Police pour les titres et les noms "Marine et Antoine" */
@@ -115,15 +115,28 @@
         /* --- Buttons --- */
         .btn {
             display: inline-block;
-			background: #6582a6;
+            background: #6582a6;
             color: white;
             padding: 14px 28px;
             border: none;
             border-radius: 30px;
             cursor: pointer;
             margin-top: 20px;
-			text-decoration: none;
+            text-decoration: none;
             font-weight: bold;
+            transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .btn:hover {
+            background: #4a6080;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(101,130,166,0.4);
+        }
+        #rsvp .btn {
+            display: block;
+            width: fit-content;
+            margin: 24px auto 0;
+            font-size: 1.15rem;
+            padding: 16px 40px;
         }
 		
 		/* Galerie photo */
@@ -267,28 +280,146 @@
     }
     /* SECTIONS */
     section {
-        padding: 40px 15px;
+        padding: 22px 15px;
     }
 }
 html {
     scroll-behavior: smooth;
 }
+	/* Images illustratives du programme (harmonisées) */
+.prog-img {
+    max-width: 220px;
+    height: auto;
+    border-radius: 10px;
+    margin: 10px auto 18px;
+    display: block;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.10);
+}
+
+/* Image de l'histoire */
+.histoire-img {
+    max-width: 420px;
+    height: auto;
+    border-radius: 12px;
+    margin: 28px auto 0;
+    display: block;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.12);
+}
+
+/* Image RSVP */
+.rsvp-img {
+    max-width: 360px;
+    height: auto;
+    border-radius: 12px;
+    margin: 30px auto 0;
+    display: block;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.12);
+}
+
+/* Histoire : image centrée au-dessus du texte */
+.histoire-top {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.histoire-figure {
+    margin: 0;
+    text-align: center;
+}
+.histoire-figure .prog-img {
+    max-width: 290px;
+    margin-bottom: 6px;
+}
+.histoire-figure figcaption {
+    font-style: italic;
+    font-size: 0.9rem;
+    color: #888;
+}
+.histoire-texte {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+	/* Programme : image à gauche + texte à droite */
+.programme-container {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 20px auto;
+    max-width: 700px;
+}
+.programme-text {
+    flex: 1;
+    min-width: 260px;
+    text-align: left;
+}
+
+/* Images cartes clicables */
+.maps-link {
+    display: inline-block;
+}
+.maps-link img {
+    max-width: 250px;
+    height: auto;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.maps-link img:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.22);
+}
+.maps-hint {
+    font-size: 0.8em;
+    color: #aaa;
+    font-style: italic;
+    margin: 0 0 6px;
+}
+
+/* Homogénéisation des tailles de texte */
+section p {
+    font-size: 1rem;
+    line-height: 1.7;
+    margin: 6px 0;
+}
+section h2 {
+    font-size: 2.4em;
+}
+section h3 {
+    font-size: 1.7em;
+}
+
 	/* Conteneur des localisations */
 .locations-container {
     display: flex;
-    justify-content: space-around; /* Espace les deux localisations uniformément */
-    align-items: flex-start; /* Aligne les éléments en haut */
-    flex-wrap: wrap; /* Permet aux éléments de passer à la ligne sur mobile */
-    gap: 20px; /* Espace entre les deux localisations */
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 40px;
     margin: 20px 0;
 }
 
 /* Chaque localisation */
 .location {
-    flex: 1; /* Permet aux deux localisations de partager l'espace équitablement */
-    min-width: 300px; /* Largeur minimale pour chaque localisation */
-    max-width: 400px; /* Largeur maximale pour éviter qu'elles ne deviennent trop larges */
-    text-align: center; /* Centre le texte et les éléments */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 260px;
+    max-width: 300px;
+    text-align: center;
+}
+/* Pousse hint + image ensemble vers le bas pour aligner les deux côte à côte */
+.maps-bottom {
+    margin-top: auto;
+    padding-top: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
 }
 	
     </style>
@@ -346,66 +477,75 @@ html {
     <!-- NOTRE HISTOIRE -->
     <section id="histoire">
         <h2>Comment tout a commencé</h2>
+        <div class="histoire-top">
+            <figure class="histoire-figure">
+                <img class="prog-img" src="images/antoine-et-marine.png" alt="Antoine et Marine">
+                <figcaption>Notre première photo</figcaption>
+            </figure>
+        </div>
+        <div class="histoire-texte">
 <p>Il était une fois une jolie princesse et un beau gosse décontracté.<br>
-Par un heureux concours de circonstances, le beau gosse s'aventura en terre inexplorée : Sucy-en-Brie !<br>
+Par un heureux concours de circonstances, le beau gosse s’aventura en terre inexplorée : Sucy-en-Brie !<br>
 Lui qui était habitué à la vie parisienne, il traversa toutes les couronnes un vendredi soir pour retrouver son fameux compère Alioune.<br>
 Dès qu’il le retrouva à la gare, Alioune lui annonça : <em>"Antoine, tu vas voir, y a quelqu’un qui pourrait te plaire à la soirée !"</em><br>
 Et il ne s’était pas trompé... Après deux heures à parler de ???, les deux protagonistes ne se lâchèrent plus !<br>
-Une fête de l’humanité plus tard, suivie d’un incendie dans une pizzeria, et les voilà, le couple était formé ! 😊 <br>
-		
-Oyez, oyez !<br>
-Bienvenue sur notre site de mariage !<br>
-Nous avons créé ce site pour partager toutes les informations autour de notre mariage et avons hâte de célébrer ce moment unique avec vous !<br>
-Notre première rencontre s'est fait en région parisienne alors que ce monsieur vivait rue St Maur et cette demoiselle vivait à St Maur :)<br>
-Ils ont pu accrocher rapidement avec l'aide de leurs amis un peu insistant !<br> 
-Ils ont finalement décidé de s'installer à St maur mais comme se sont des gens simples ils ont choisi de se marier dans le sud de la France !<br>
-N'hésitez pas à nous partager votre organisation pour que nous puissions vous aider à venir partager ce moment important pour nous (exemple si vous venez en train)<br>
-Des bisous et de l'amour 💖💖💖💖</p>
+Une fête de l’humanité plus tard, suivie d’un incendie dans une pizzeria, et les voilà, le couple était formé ! 😊<br>
+Il faut dire que les astres étaient alignés : lui vivait rue Saint-Maur, elle vivait à Saint-Maur — un signe du destin, non ? Grâce à leurs amis un peu insistants, ils ont vite accroché !<br>
+Ils ont finalement décidé de s’installer ensemble, et comme ce sont des gens simples, ils ont choisi de se marier dans le sud de la France.<br>
+Nous avons hâte de célébrer ce moment unique avec vous ! N’hésitez pas à nous partager votre organisation pour que nous puissions vous aider à venir (par exemple si vous venez en train).<br>
+Des bisous et de l’amour 💖💖💖💖</p>
+        </div>
     </section>
 
     <!-- INFORMATIONS MARIAGE -->
     <section id="infos">
         <h2>Programme de cette journée magique</h2>
-        <p><strong>14h00 - Cérémonie civile à la mairie</strong></p>
-		<p><strong>15h00 - Réception & Cérémonie laïque au Chateau Grand Moulin</strong></p>   b
-		<p><strong>18h00 - Ouverture du vin d'honneur</strong></p>
-		<p><strong>20h00 - Le repas commence</strong></p>
-		
-		 <h2><br>Programme du lendemain, premier jour des mariés</h2>
-        <p><strong>11h00-14h00 - Brunch au Chateau Grand Moulin</strong></p>
-		</section>
-
-    <!-- GALERIE -->
-    <section id="gallery">
-        <h2>Photos & Moments</h2>
-        <div class="gallery">
-          <!--  <img src="images/mariagesarah.jpg" alt="Marine et Antoine">
-            <img src="images/mariagecaroline.jpg" alt="Marine et Antoine-2">
-            <img src="images/photofun.jpg" alt="Marine et Antoine-3"> -->
-            <img src="images/photofun2.jpg" alt="Marine et Antoine-4">
-		<!--	<img src="images/photoshoot.jpg" alt="Marine et Antoine-5"> -->
-            <img src="images/photoshoot2.jpg" alt="Marine et Antoine-6">
-			
+        <div class="programme-container">
+            <img class="prog-img" src="images/ceremonie-laique.png" alt="Cérémonie laïque">
+            <div class="programme-text">
+                <p><strong>14h00 - Cérémonie civile à la mairie</strong></p>
+                <p><strong>15h00 - Cérémonie laïque au Chateau Grand Moulin</strong></p>
+                <p><strong>18h00 - Ouverture du vin d'honneur</strong></p>
+                <p><strong>20h00 - Le repas commence</strong></p>
+            </div>
+        </div>
+        <h2><br>Programme du lendemain, premier jour des mariés</h2>
+        <div class="programme-container">
+            <img class="prog-img" src="images/brunch.png" alt="Brunch">
+            <div class="programme-text">
+                <p><strong>11h00-14h00 - Brunch au Chateau Grand Moulin</strong></p>
+            </div>
         </div>
     </section>
 
+
     <!-- RSVP -->
-<section id="rsvp">
+<section id="rsvp" style="background: linear-gradient(150deg, #f0ebe2 0%, #e8e2d8 100%);">
     <h2>RSVP</h2>
-    <p>Merci de confirmer votre présence avant le 5 avril 2026 💌</p>
-    <a href="https://forms.gle/sAzVyhtBrGAgcTY47"
-       class="btn"
-       target="_blank">
-        Je confirme ma présence
-    </a>		
+    <div class="programme-container">
+        <div class="programme-text">
+            <p>Nous serions si heureux de vous avoir à nos côtés pour ce jour si spécial ✨</p>
+            <p>Merci de confirmer votre présence avant le <strong>5 avril 2026</strong> 💌</p>
+            <a href="https://forms.gle/sAzVyhtBrGAgcTY47"
+               class="btn"
+               target="_blank">
+                Je confirme ma présence
+            </a>
+        </div>
+        <img class="prog-img" src="images/antoineetmarine-amoureux.png" alt="Antoine et Marine amoureux">
+    </div>
 </section>
 	
 	<!-- Liste de mariage -->
 <section id="liste-mariage">
     <h2>Liste de mariage</h2>
-<p>Votr présence sera votre plus beau cadeau, mais si vous souhaitez ajouter une étoile à notre voyage de noce, vous pouvez contribuer à notre cagnotte.
-Une urne des mariés sera disponible le jour du mariage ❤️✨</p>
-	  <br><img src="images/canaries.png" alt="Canaries">
+    <div class="programme-container">
+        <img class="prog-img" src="images/canaries.png" alt="Canaries">
+        <div class="programme-text">
+            <p>Votre présence sera votre plus beau cadeau, mais si vous souhaitez ajouter une étoile à notre voyage de noce, vous pouvez contribuer à notre cagnotte.</p>
+            <p>Une urne des mariés sera disponible le jour du mariage ❤️✨</p>
+        </div>
+    </div>
 </section>
 
 	
@@ -415,38 +555,37 @@ Une urne des mariés sera disponible le jour du mariage ❤️✨</p>
 		<!-- Conteneur pour les deux localisations -->
     <div class="locations-container">
 		 <div class="location">
-		  <h3>Localisation de la mairie</h3>
-	     <p>Mairie de Villedaigne<br>
-		2 rue de la Mairie 11200 Villedaigne </p>
-    <iframe
-        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d219.82998489243116!2d2.8616221!3d43.215385!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12b1b3fe14877c99%3A0xd7da9402729c93aa!2sMairie%20de%20Villedaigne!5e1!3m2!1sfr!2sfr!4v1768761880311!5m2!1sfr!2sfr"
-        width="250"
-        height="250"
-        style="border:0;"
-        allowfullscreen=""
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade">
-    </iframe>
+		  <h3>La mairie</h3>
+	     <p>Mairie de Villedaigne<br>2 rue de la Mairie, 11200 Villedaigne</p>
+         <div class="maps-bottom">
+            <p class="maps-hint">Cliquez sur l'image pour ouvrir Maps</p>
+            <a class="maps-link"
+               href="https://maps.google.com/?q=2+rue+de+la+Mairie,+11200+Villedaigne"
+               target="_blank" rel="noopener" aria-label="Ouvrir la mairie dans Google Maps">
+                <img src="images/mairie-aquarelle.png" alt="Mairie de Villedaigne — ouvrir dans Google Maps">
+            </a>
+        </div>
 	</div>
 	<div class="location">
-	<h3>Localisation du Chateau Grand Moulin</h3>
-	<p>Château Grand Moulin<br>
-		6 avenue du Maréchal Galliéni 11200 Lézignan-Corbières</p>
-		<iframe
-        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3517.9813124794496!2d2.7642426!3d43.2032204!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12b1ca3fbd339a9d%3A0xb4f52e47bdc8cb0d!2sCh%C3%A2teau%20Grand%20Moulin!5e1!3m2!1sfr!2sfr!4v1768762360937!5m2!1sfr!2sfr"
-		width="250"
-        height="250"
-        style="border:0;"
-        allowfullscreen=""
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade">
-    </iframe>
+	<h3>Le Château Grand Moulin</h3>
+	<p>Château Grand Moulin<br>6 avenue du Maréchal Galliéni, 11200 Lézignan-Corbières</p>
+    <div class="maps-bottom">
+        <p class="maps-hint">Cliquez sur l'image pour ouvrir Maps</p>
+        <a class="maps-link"
+           href="https://maps.google.com/?q=Chateau+Grand+Moulin,+6+avenue+du+Marechal+Gallieni,+11200+Lezignan-Corbieres"
+           target="_blank" rel="noopener" aria-label="Ouvrir le Château Grand Moulin dans Google Maps">
+            <img src="images/chateau-aquarelle.png" alt="Château Grand Moulin — ouvrir dans Google Maps">
+        </a>
+    </div>
 		</div>
     </div>
 	<h3>Localisation des parkings</h3>
         <p>Pour la mairie, se garer un peu n'importe ou, pour la salle, soit le long de la route, soit en face au carefour contact </p>
     <h3>Localisation des logements</h3>
 	    <p>Hotel du Tournedos, Camping avec des réductios, ou Airbnb, de grandes villas !</p>
+    <h3>Thème du mariage</h3>
+    <p>Pour que notre journée soit un tableau harmonieux, nous vous invitons à choisir une tenue dans les teintes de notre palette de couleurs ci-dessous.<br>Place aux couleurs douces et champêtres !</p>
+    <img class="prog-img" src="images/couleur_mariage.png" alt="Palette de couleurs du mariage" style="display: block; margin: 10px auto; max-width: 340px;">
 		</section>
  <!-- LOGISTIQUE -->
 <section id="mystere">
