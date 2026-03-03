@@ -26,7 +26,7 @@
 
         body {
             font-family: 'Alice', serif;
-            background: linear-gradient(135deg, #e8e8e8 0%, #f5f5f5 100%);
+            background: linear-gradient(150deg, #ede5d8 0%, #f5f0e8 100%);
             min-height: 100vh;
             overflow: hidden;
             color: #487253;
@@ -47,7 +47,7 @@
             padding: 20px;
         }
 
-        /* ── Section enveloppe (absolument centrée pour ne pas impacter le flux) ── */
+        /* ── Section enveloppe ── */
         #envelopeSection {
             position: absolute;
             inset: 0;
@@ -55,6 +55,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            gap: 0;
             padding: 20px;
             text-align: center;
             transition: opacity 0.4s ease;
@@ -67,119 +68,192 @@
 
         h1 {
             font-family: 'Pinyon Script', cursive;
-            font-size: 3em;
+            font-size: 3.2em;
             color: #487253;
-            margin-bottom: 20px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            margin-bottom: 8px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.08);
         }
 
         .subtitle {
-            font-size: 1.3em;
-            margin-bottom: 40px;
-            color: #666;
+            font-size: 1.1em;
+            margin-bottom: 44px;
+            color: #999;
+            font-style: italic;
         }
 
         .hint {
-            margin-top: 30px;
-            font-size: 1.1em;
-            color: #999;
-            animation: blink 2s infinite;
+            margin-top: 22px;
+            font-size: 0.95em;
+            color: #bba880;
+            animation: blink 2.2s ease-in-out infinite;
         }
 
         @keyframes blink {
-            0%, 50%, 100% { opacity: 1; }
-            25%, 75%      { opacity: 0.5; }
+            0%, 100% { opacity: 1; }
+            50%       { opacity: 0.3; }
         }
 
-        /* ── Enveloppe 3D ── */
+        /* ── Retournement 3D ── */
         .envelope-wrapper {
-            perspective: 1000px;
+            perspective: 1400px;
             cursor: pointer;
             display: inline-block;
         }
 
         .envelope {
-            width: 300px;
-            height: 200px;
+            width: 380px;
+            height: 252px;
             position: relative;
             transform-style: preserve-3d;
-            transition: transform 0.6s ease;
+            transition: transform 0.75s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .envelope.flipping {
             transform: rotateX(180deg);
         }
 
-        .envelope-front,
-        .envelope-back {
+        /* Face avant et arrière */
+        .env-front,
+        .env-back {
             width: 100%;
             height: 100%;
             position: absolute;
             backface-visibility: hidden;
-            border-radius: 10px;
         }
 
-        .envelope-front {
-            background: linear-gradient(135deg, #f5e6d3 0%, #ead5c1 100%);
-            border: 3px solid #d4a574;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
-        .envelope-front::before {
-            content: "✉️";
-            font-size: 4em;
-        }
-
-        .envelope-front p {
-            font-size: 0.9em;
-            color: #666;
-            font-style: italic;
-            margin-top: 8px;
-        }
-
-        /* Le dos de l'enveloppe est décoratif uniquement — aucun contenu */
-        .envelope-back {
-            background: linear-gradient(135deg, #ead5c1 0%, #f5e6d3 100%);
-            border: 3px solid #d4a574;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        .env-back {
             transform: rotateX(180deg);
         }
 
-        /* ── Section faire-part (dans le flux, masquée initialement) ── */
+        /* ── Corps de l'enveloppe (face avant) ── */
+        .env-body {
+            width: 100%;
+            height: 100%;
+            background: #faf0e0;
+            border-radius: 3px;
+            position: relative;
+            overflow: hidden;
+            box-shadow:
+                0 22px 55px rgba(120, 80, 30, 0.22),
+                0 6px 16px rgba(0, 0, 0, 0.10),
+                inset 0 1px 0 rgba(255,255,255,0.7);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .envelope-wrapper:hover .env-body {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow:
+                0 32px 70px rgba(120, 80, 30, 0.28),
+                0 10px 22px rgba(0, 0, 0, 0.13),
+                inset 0 1px 0 rgba(255,255,255,0.7);
+        }
+
+        /* Rabat bas — triangle pointant vers le haut */
+        .env-flap-bottom {
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%; height: 136px;
+            background: linear-gradient(to top, #e8d5b7, #eddec8);
+            clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
+        }
+
+        /* Rabat gauche */
+        .env-flap-left {
+            position: absolute;
+            top: 0; left: 0;
+            width: 210px; height: 100%;
+            background: linear-gradient(to right, #eddac1, #f2e3cc);
+            clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
+        }
+
+        /* Rabat droit */
+        .env-flap-right {
+            position: absolute;
+            top: 0; right: 0;
+            width: 210px; height: 100%;
+            background: linear-gradient(to left, #e5d0b8, #ecd9c3);
+            clip-path: polygon(100% 0%, 0% 50%, 100% 100%);
+        }
+
+        /* Rabat haut (le couvercle) — triangle pointant vers le bas */
+        .env-flap-top {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 136px;
+            background: linear-gradient(to bottom, #d8c3a0, #e5d3b8);
+            clip-path: polygon(0% 0%, 50% 100%, 100% 0%);
+        }
+
+        /* Sceau de cire */
+        .wax-seal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 72px;
+            height: 72px;
+            background: radial-gradient(circle at 38% 36%, #62987a, #2e5a3c);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            box-shadow:
+                0 5px 14px rgba(0,0,0,0.35),
+                inset 0 1px 3px rgba(255,255,255,0.22),
+                inset 0 -2px 4px rgba(0,0,0,0.25);
+            animation: seal-pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes seal-pulse {
+            0%, 100% { box-shadow: 0 5px 14px rgba(0,0,0,0.35), inset 0 1px 3px rgba(255,255,255,0.22), inset 0 -2px 4px rgba(0,0,0,0.25); }
+            50%       { box-shadow: 0 5px 22px rgba(46,90,60,0.45), inset 0 1px 3px rgba(255,255,255,0.22), inset 0 -2px 4px rgba(0,0,0,0.25); }
+        }
+
+        .wax-seal span {
+            font-family: 'Pinyon Script', cursive;
+            color: #dff0e4;
+            font-size: 23px;
+            line-height: 1;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.35);
+            user-select: none;
+        }
+
+        /* ── Dos de l'enveloppe (décoratif) ── */
+        .env-back-body {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #e8d8be, #f2e6ce);
+            border-radius: 3px;
+            box-shadow:
+                0 22px 55px rgba(120, 80, 30, 0.22),
+                0 6px 16px rgba(0, 0, 0, 0.10);
+        }
+
+        /* ── Section faire-part (sans cadre) ── */
         #fairePartSection {
             display: none;
             opacity: 0;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.55s ease;
             width: 100%;
-            max-width: 1100px;
+            max-width: 1080px;
         }
 
         #fairePartSection.visible {
             opacity: 1;
         }
 
-        /* ── Papier du faire-part ── */
+        /* ── Contenu du faire-part — blanc sur blanc, aucun cadre ── */
         .paper {
             width: 100%;
-            background: linear-gradient(180deg, #ffffff, #fbfbfb);
-            border: 6px solid #f1efe9;
-            box-shadow: 0 6px 24px rgba(0,0,0,0.10);
-            border-radius: 12px;
-            padding: 48px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 18px;
+            background: white;
+            padding: 52px 48px;
         }
 
         .paper-grid {
             display: flex;
             width: 100%;
-            gap: 24px;
+            gap: 40px;
             align-items: center;
         }
 
@@ -189,39 +263,40 @@
             flex-direction: column;
             align-items: flex-start;
             text-align: left;
-            gap: 12px;
+            gap: 14px;
         }
 
         .paper h2 {
             font-family: 'Pinyon Script', cursive;
-            font-size: 48px;
+            font-size: 52px;
             color: #487253;
+            line-height: 1.1;
         }
 
         .paper h3 {
             font-family: 'Pinyon Script', cursive;
             color: #487253;
-            font-size: 36px;
+            font-size: 34px;
         }
 
         .paper .date {
             font-weight: 700;
             color: #35613f;
             letter-spacing: 1px;
-            font-size: 40px;
+            font-size: 36px;
         }
 
         .paper .message {
             color: #4a4a4a;
-            line-height: 1.6;
-            font-size: 18px;
+            line-height: 1.75;
+            font-size: 17px;
         }
 
         .programme {
             list-style: none;
             color: #487253;
-            line-height: 1.8;
-            font-size: 18px;
+            line-height: 1.9;
+            font-size: 17px;
         }
 
         .paper-right {
@@ -230,14 +305,14 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 10px;
         }
 
         .qr {
             width: 180px;
             height: 180px;
             border: 8px solid #fff;
-            box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.10);
             background: white;
         }
 
@@ -245,6 +320,7 @@
             color: #35613f;
             font-weight: 700;
             text-decoration: none;
+            font-size: 14px;
         }
 
         /* ── Confettis ── */
@@ -263,20 +339,25 @@
 
         /* ── Responsive ── */
         @media (max-width: 600px) {
-            h1 { font-size: 2em; }
-            .subtitle { font-size: 1em; }
+            h1 { font-size: 2.2em; }
+            .subtitle { font-size: 0.95em; }
 
-            .envelope { width: 200px; height: 140px; }
-            .envelope-front::before { font-size: 3em; }
+            .envelope { width: 250px; height: 166px; }
+            .env-flap-bottom,
+            .env-flap-top   { height: 90px; }
+            .env-flap-left,
+            .env-flap-right { width: 138px; }
+            .wax-seal        { width: 50px; height: 50px; }
+            .wax-seal span   { font-size: 16px; }
 
-            .paper { padding: 20px; }
-            .paper .date { font-size: 28px; }
-            .paper h2 { font-size: 36px; }
-            .paper h3 { font-size: 28px; }
+            .paper { padding: 28px 20px; }
+            .paper .date  { font-size: 26px; }
+            .paper h2     { font-size: 38px; }
+            .paper h3     { font-size: 26px; }
 
             .paper-grid {
                 flex-direction: column;
-                gap: 12px;
+                gap: 20px;
                 align-items: center;
             }
 
@@ -286,35 +367,47 @@
             }
 
             .paper .message,
-            .programme { font-size: 16px; }
-            .programme { text-align: center; }
+            .programme { font-size: 15px; }
+            .programme  { text-align: center; }
 
-            .qr { width: 120px; height: 120px; }
+            .qr { width: 130px; height: 130px; }
         }
     </style>
 </head>
 <body>
     <div class="page-wrapper">
 
-        <!-- Section enveloppe : absolument centrée, sans impact sur le flux -->
+        <!-- Section enveloppe -->
         <div id="envelopeSection">
             <h1>Marine & Antoine</h1>
             <p class="subtitle">Cliquez sur l'enveloppe pour découvrir notre faire-part</p>
 
             <div class="envelope-wrapper" id="envelopeWrapper">
                 <div class="envelope" id="envelope">
-                    <div class="envelope-front">
-                        <p>Cliquez pour ouvrir</p>
+
+                    <!-- Face avant : enveloppe CSS -->
+                    <div class="env-front">
+                        <div class="env-body">
+                            <div class="env-flap-bottom"></div>
+                            <div class="env-flap-left"></div>
+                            <div class="env-flap-right"></div>
+                            <div class="env-flap-top"></div>
+                            <div class="wax-seal"><span>M&A</span></div>
+                        </div>
                     </div>
-                    <!-- Dos décoratif uniquement, aucun contenu -->
-                    <div class="envelope-back"></div>
+
+                    <!-- Face arrière (décorative) -->
+                    <div class="env-back">
+                        <div class="env-back-body"></div>
+                    </div>
+
                 </div>
             </div>
 
             <p class="hint">↟ Ouvre l'enveloppe ↟</p>
         </div>
 
-        <!-- Faire-part : dans le flux normal, masqué initialement -->
+        <!-- Faire-part (masqué initialement, aucun cadre) -->
         <div id="fairePartSection" role="document" aria-label="Faire-part de Marine et Antoine">
             <div class="paper">
                 <div class="paper-grid">
@@ -373,33 +466,31 @@
         }
 
         document.getElementById('envelopeWrapper').addEventListener('click', function handler() {
-            // Empêche un double-clic
             this.removeEventListener('click', handler);
 
-            const envelope        = document.getElementById('envelope');
-            const envelopeSection = document.getElementById('envelopeSection');
+            const envelope         = document.getElementById('envelope');
+            const envelopeSection  = document.getElementById('envelopeSection');
             const fairePartSection = document.getElementById('fairePartSection');
 
-            // Étape 1 — retourner l'enveloppe (600 ms)
+            // 1 — Retournement (750 ms)
             envelope.classList.add('flipping');
             createConfetti();
 
-            // Étape 2 — après la rotation : fondu sortie de l'enveloppe (400 ms)
+            // 2 — Fondu sortie de l'enveloppe (400 ms)
             setTimeout(() => {
                 envelopeSection.classList.add('fading-out');
 
-                // Étape 3 — après le fondu sortie : afficher le faire-part
+                // 3 — Affichage du faire-part
                 setTimeout(() => {
                     envelopeSection.style.display = 'none';
                     document.body.classList.add('opened');
 
                     fairePartSection.style.display = 'block';
-                    // Déclencher le reflow pour que la transition opacity s'active
-                    fairePartSection.getBoundingClientRect();
+                    fairePartSection.getBoundingClientRect(); // force reflow
                     fairePartSection.classList.add('visible');
                 }, 400);
 
-            }, 600);
+            }, 750);
         });
     </script>
 </body>
