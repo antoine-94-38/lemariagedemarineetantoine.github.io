@@ -422,17 +422,35 @@ section h3 {
     gap: 4px;
 }
 
-/* ---- Easter egg RSVP ---- */
+/* ---- Easter eggs RSVP ---- */
+@keyframes hotspot-glow {
+    0%, 100% { opacity: 0.15; transform: scale(0.94); }
+    50%       { opacity: 0.55; transform: scale(1.06); }
+}
 .rsvp-photo-wrapper {
     position: relative;
     display: inline-block;
+    overflow: visible;
 }
-#hair-hotspot {
+.hair-hotspot {
     position: absolute;
-    top: 8%; left: 34%;
-    width: 52%; height: 30%;
-    cursor: default;
+    cursor: crosshair;
+    border-radius: 50%;
 }
+.hair-hotspot::after {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 220, 120, 0.55) 0%, transparent 70%);
+    animation: hotspot-glow 2.2s ease-in-out infinite;
+    pointer-events: none;
+}
+/* Marié (haut droite) */
+#groom-hotspot { top: 5%; left: 48%; width: 46%; height: 32%; }
+/* Mariée (gauche milieu) */
+#bride-hotspot { top: 30%; left: 3%; width: 40%; height: 40%; }
+
 .thought-el {
     position: absolute;
     opacity: 0;
@@ -445,14 +463,12 @@ section h3 {
     border-radius: 50%;
     background: white;
     border: 2px solid #555;
-    top: calc(8% - 18px); left: 62%;
 }
 .dot-md {
     width: 15px; height: 15px;
     border-radius: 50%;
     background: white;
     border: 2px solid #555;
-    top: calc(8% - 42px); left: 59%;
 }
 .thought-bubble {
     background: white;
@@ -463,8 +479,15 @@ section h3 {
     font-style: italic;
     color: #333;
     white-space: nowrap;
-    top: calc(8% - 90px); left: 20%;
 }
+/* Positions marié */
+#groom-dot1   { top: calc(5%  - 18px); left: 68%; }
+#groom-dot2   { top: calc(5%  - 42px); left: 65%; }
+#groom-bubble { top: calc(5%  - 90px); left: 22%; }
+/* Positions mariée */
+#bride-dot1   { top: calc(30% - 18px); left: 18%; }
+#bride-dot2   { top: calc(30% - 42px); left: 15%; }
+#bride-bubble { top: calc(30% - 90px); left: -2%; }
 
     </style>
 </head>
@@ -578,11 +601,16 @@ Des bisous et de l’amour 💖💖💖💖</p>
         </div>
         <div class="rsvp-photo-wrapper">
             <img class="prog-img" src="images/antoineetmarine-amoureux.png" alt="Antoine et Marine amoureux">
-            <!-- Easter egg : zone sur les cheveux du marié -->
-            <div id="hair-hotspot"></div>
-            <div class="thought-el dot-sm"  id="thought-dot1"></div>
-            <div class="thought-el dot-md"  id="thought-dot2"></div>
-            <div class="thought-el thought-bubble" id="thought-bubble">qu'est-ce qu'elle est belle !</div>
+            <!-- Easter egg marié -->
+            <div class="hair-hotspot" id="groom-hotspot"></div>
+            <div class="thought-el dot-sm"    id="groom-dot1"></div>
+            <div class="thought-el dot-md"    id="groom-dot2"></div>
+            <div class="thought-el thought-bubble" id="groom-bubble">qu'est-ce qu'elle est belle !</div>
+            <!-- Easter egg mariée -->
+            <div class="hair-hotspot" id="bride-hotspot"></div>
+            <div class="thought-el dot-sm"    id="bride-dot1"></div>
+            <div class="thought-el dot-md"    id="bride-dot2"></div>
+            <div class="thought-el thought-bubble" id="bride-bubble">qu'est-ce qu'il est rigolo !</div>
         </div>
     </div>
 </section>
@@ -643,26 +671,33 @@ Des bisous et de l’amour 💖💖💖💖</p>
   <h2>Menu mystère, dévoilé le jour du mariage !</h2>
 </section>
 	
-    <!-- Easter egg : bulle de pensée sur les cheveux du marié -->
+    <!-- Easter eggs : bulles de pensée marié & mariée -->
     <script>
     (function () {
-        const hotspot = document.getElementById('hair-hotspot');
-        const dot1    = document.getElementById('thought-dot1');
-        const dot2    = document.getElementById('thought-dot2');
-        const bubble  = document.getElementById('thought-bubble');
-        let timers = [];
+        function setupEasterEgg(hotspotId, dot1Id, dot2Id, bubbleId) {
+            const hotspot = document.getElementById(hotspotId);
+            const els = [
+                document.getElementById(dot1Id),
+                document.getElementById(dot2Id),
+                document.getElementById(bubbleId)
+            ];
+            let timers = [];
 
-        hotspot.addEventListener('mouseenter', () => {
-            timers.push(setTimeout(() => dot1.classList.add('visible'),   2000));
-            timers.push(setTimeout(() => dot2.classList.add('visible'),   4000));
-            timers.push(setTimeout(() => bubble.classList.add('visible'), 6000));
-        });
+            hotspot.addEventListener('mouseenter', () => {
+                timers.push(setTimeout(() => els[0].classList.add('visible'), 2000));
+                timers.push(setTimeout(() => els[1].classList.add('visible'), 4000));
+                timers.push(setTimeout(() => els[2].classList.add('visible'), 6000));
+            });
 
-        hotspot.addEventListener('mouseleave', () => {
-            timers.forEach(clearTimeout);
-            timers = [];
-            [dot1, dot2, bubble].forEach(el => el.classList.remove('visible'));
-        });
+            hotspot.addEventListener('mouseleave', () => {
+                timers.forEach(clearTimeout);
+                timers = [];
+                els.forEach(el => el.classList.remove('visible'));
+            });
+        }
+
+        setupEasterEgg('groom-hotspot', 'groom-dot1', 'groom-dot2', 'groom-bubble');
+        setupEasterEgg('bride-hotspot', 'bride-dot1', 'bride-dot2', 'bride-bubble');
     })();
     </script>
 
