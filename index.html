@@ -421,7 +421,51 @@ section h3 {
     align-items: center;
     gap: 4px;
 }
-	
+
+/* ---- Easter egg RSVP ---- */
+.rsvp-photo-wrapper {
+    position: relative;
+    display: inline-block;
+}
+#hair-hotspot {
+    position: absolute;
+    top: 8%; left: 34%;
+    width: 52%; height: 30%;
+    cursor: default;
+}
+.thought-el {
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+.thought-el.visible { opacity: 1; }
+.dot-sm {
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid #555;
+    top: calc(8% - 18px); left: 62%;
+}
+.dot-md {
+    width: 15px; height: 15px;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid #555;
+    top: calc(8% - 42px); left: 59%;
+}
+.thought-bubble {
+    background: white;
+    border: 2px solid #555;
+    border-radius: 50px;
+    padding: 9px 16px;
+    font-size: 0.82rem;
+    font-style: italic;
+    color: #333;
+    white-space: nowrap;
+    top: calc(8% - 90px); left: 20%;
+}
+
     </style>
 </head>
 <script>
@@ -532,7 +576,14 @@ Des bisous et de l’amour 💖💖💖💖</p>
                 Je confirme ma présence
             </a>
         </div>
-        <img class="prog-img" src="images/antoineetmarine-amoureux.png" alt="Antoine et Marine amoureux">
+        <div class="rsvp-photo-wrapper">
+            <img class="prog-img" src="images/antoineetmarine-amoureux.png" alt="Antoine et Marine amoureux">
+            <!-- Easter egg : zone sur les cheveux du marié -->
+            <div id="hair-hotspot"></div>
+            <div class="thought-el dot-sm"  id="thought-dot1"></div>
+            <div class="thought-el dot-md"  id="thought-dot2"></div>
+            <div class="thought-el thought-bubble" id="thought-bubble">qu'est-ce qu'elle est belle !</div>
+        </div>
     </div>
 </section>
 	
@@ -592,6 +643,29 @@ Des bisous et de l’amour 💖💖💖💖</p>
   <h2>Menu mystère, dévoilé le jour du mariage !</h2>
 </section>
 	
+    <!-- Easter egg : bulle de pensée sur les cheveux du marié -->
+    <script>
+    (function () {
+        const hotspot = document.getElementById('hair-hotspot');
+        const dot1    = document.getElementById('thought-dot1');
+        const dot2    = document.getElementById('thought-dot2');
+        const bubble  = document.getElementById('thought-bubble');
+        let timers = [];
+
+        hotspot.addEventListener('mouseenter', () => {
+            timers.push(setTimeout(() => dot1.classList.add('visible'),   2000));
+            timers.push(setTimeout(() => dot2.classList.add('visible'),   4000));
+            timers.push(setTimeout(() => bubble.classList.add('visible'), 6000));
+        });
+
+        hotspot.addEventListener('mouseleave', () => {
+            timers.forEach(clearTimeout);
+            timers = [];
+            [dot1, dot2, bubble].forEach(el => el.classList.remove('visible'));
+        });
+    })();
+    </script>
+
     <!-- FOOTER -->
     <footer style="padding: 20px; background: #eee;">
         <p>Merci de faire partie de ce jour spécial 💕</p>
