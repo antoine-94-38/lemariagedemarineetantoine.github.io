@@ -356,6 +356,35 @@ html {
     min-width: 260px;
     text-align: left;
 }
+.logements-img {
+    max-width: 300px;
+    height: auto;
+    border-radius: 10px;
+    margin: 10px auto 18px;
+    display: block;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.10);
+}
+.logements-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+.logements-list li {
+    padding: 4px 0;
+    color: #487253;
+}
+.logements-list li::before {
+    content: "›  ";
+    font-weight: bold;
+}
+.logements-list a {
+    color: #487253;
+    text-decoration: underline;
+}
+.logements-list a:hover {
+    color: #2e5a3c;
+}
 
 /* Images cartes clicables */
 .maps-link {
@@ -379,6 +408,43 @@ html {
     font-style: italic;
     margin: 0 0 6px;
 }
+.maps-img {
+    max-width: 250px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+    margin-top: auto;
+    cursor: zoom-in;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.maps-img:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.22);
+}
+
+/* Lightbox parking */
+#lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.82);
+    z-index: 10000;
+    justify-content: center;
+    align-items: center;
+    cursor: zoom-out;
+}
+#lightbox.ouvert { display: flex; }
+#lightbox img {
+    max-width: 92vw;
+    max-height: 90vh;
+    border-radius: 10px;
+    box-shadow: 0 12px 48px rgba(0,0,0,0.5);
+    animation: lightbox-in 0.25s ease;
+}
+@keyframes lightbox-in {
+    from { transform: scale(0.85); opacity: 0; }
+    to   { transform: scale(1);    opacity: 1; }
+}
 
 /* Homogénéisation des tailles de texte */
 section p {
@@ -391,6 +457,11 @@ section h2 {
 }
 section h3 {
     font-size: 1.7em;
+}
+/* Titre Parkings : plus d'espace au-dessus, moins en dessous */
+#titre-parkings {
+    margin-top: 54px;
+    margin-bottom: 6px;
 }
 
 	/* Conteneur des localisations */
@@ -488,6 +559,66 @@ section h3 {
 #bride-dot1   { top: calc(30% - 18px); left: 18%; }
 #bride-dot2   { top: calc(30% - 42px); left: 15%; }
 #bride-bubble { top: calc(30% - 90px); left: -2%; }
+
+/* ---- Chat mystère ---- */
+#mystere { display: none; }
+
+#chat-mystere {
+    position: fixed;
+    width: 72px;
+    height: 72px;
+    cursor: pointer;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+#chat-mystere img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+}
+#chat-mystere:hover { transform: scale(1.18) rotate(-6deg); }
+#chat-mystere.visible {
+    opacity: 1;
+    animation: chat-flotte 2.8s ease-in-out infinite;
+}
+@keyframes chat-flotte {
+    0%, 100% { transform: translateY(0);   }
+    50%       { transform: translateY(-9px); }
+}
+
+/* Modal menu mystère */
+#modal-mystere {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 10000;
+    justify-content: center;
+    align-items: center;
+}
+#modal-mystere.ouvert { display: flex; }
+#modal-mystere-contenu {
+    background: #fdf9f4;
+    border-radius: 20px;
+    padding: 40px 44px;
+    max-width: 420px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+#modal-mystere-contenu h2 { color: #487253; margin-bottom: 14px; }
+#modal-fermer {
+    position: absolute;
+    top: 14px; right: 18px;
+    background: none; border: none;
+    font-size: 1.5rem; cursor: pointer; color: #aaa; line-height: 1;
+}
+#modal-fermer:hover { color: #555; }
 
     </style>
 </head>
@@ -658,18 +789,64 @@ Des bisous et de l’amour 💖💖💖💖</p>
     </div>
 		</div>
     </div>
-	<h3>Localisation des parkings</h3>
-        <p>Pour la mairie, se garer un peu n'importe ou, pour la salle, soit le long de la route, soit en face au carefour contact </p>
-    <h3>Localisation des logements</h3>
-	    <p>Hotel du Tournedos, Camping avec des réductios, ou Airbnb, de grandes villas !</p>
+	<h3 id="titre-parkings">Parkings</h3>
+    <div class="locations-container">
+        <div class="location">
+            <h3>Mairie</h3>
+            <p>Zones encadrées en bleu : devant la mairie, ou le long de la route de canet.</p>
+            <div class="maps-bottom">
+                <p class="maps-hint">Cliquez sur l'image pour l'agrandir</p>
+                <img src="images/parking%20mairie.PNG" alt="Plan parking mairie" class="maps-img">
+            </div>
+        </div>
+        <div class="location">
+            <h3>Château Grand Moulin</h3>
+            <p>Zone encadrée en bleu : le long de la route ou sur le parking du carrefour contact.</p>
+            <div class="maps-bottom">
+                <p class="maps-hint">Cliquez sur l'image pour l'agrandir</p>
+                <img src="images/parking-chateau.PNG" alt="Plan parking château" class="maps-img">
+            </div>
+        </div>
+    </div>
+    <h3>Logements</h3>
+    <div class="programme-container">
+        <img class="logements-img" src="images/hotel.png" alt="Logements">
+        <div class="programme-text">
+            <ul class="logements-list">
+                <li>Hôtel le Tournedos</li>
+                <li>Le Mas de Gaujac</li>
+                <li>Bungalow au camping de la Pinède</li>
+                <li><a href="https://www.tourisme-corbieres-minervois.com/cote-pratique/nos-hebergements/les-chambres-dhotes/?shareid=50d0eef5-22c3-8daf-9881-af754fce4f86" target="_blank" rel="noopener">Les chambres d'hôtes</a></li>
+                <li><a href="https://www.tourisme-corbieres-minervois.com/cote-pratique/nos-hebergements/les-gites-et-locations-de-vacances/?shareid=2ffee53b-202f-476d-5af1-7a04c7c1d191" target="_blank" rel="noopener">Les gîtes</a></li>
+                <li><a href="https://www.tourisme-corbieres-minervois.com/residences-de-tourisme/residence-vacanceole-les-hauts-du-lac-port-minervois/" target="_blank" rel="noopener">La Résidence Vacanceol</a></li>
+                <li><a href="https://www.tourisme-corbieres-minervois.com/villages-vacances/village-de-vacances-paul-balmigere/" target="_blank" rel="noopener">Le Village Vacances Paul Balmigère</a></li>
+                <li><a href="https://www.tourisme-corbieres-minervois.com/residences-de-tourisme/la-residence-du-chateau-de-jouarres/" target="_blank" rel="noopener">La Résidence Château de Jouarres</a></li>
+            </ul>
+        </div>
+    </div>
     <h3>Thème du mariage</h3>
     <p>Pour que notre journée soit un tableau harmonieux, nous vous invitons à choisir une tenue dans les teintes de notre palette de couleurs ci-dessous.<br>Place aux couleurs douces et champêtres !</p>
     <img class="prog-img" src="images/couleur_mariage.png" alt="Palette de couleurs du mariage" style="display: block; margin: 10px auto; max-width: 340px;">
 		</section>
- <!-- LOGISTIQUE -->
+ <!-- Menu mystère (caché, révélé par le chat) -->
 <section id="mystere">
-  <h2>Menu mystère, dévoilé le jour du mariage !</h2>
+  <h2>Menu mystère 🍽️</h2>
+  <p>Chut... le menu sera dévoilé le jour du mariage !</p>
 </section>
+
+<!-- Chat mystère flottant -->
+<div id="chat-mystere">
+    <img src="images/t%C3%AAte%20de%20chat.png" alt="Chat mystère">
+</div>
+
+<!-- Modal menu mystère -->
+<div id="modal-mystere">
+    <div id="modal-mystere-contenu">
+        <button id="modal-fermer" aria-label="Fermer">✕</button>
+        <h2>Menu mystère 🍽️</h2>
+        <p>Chut... le menu sera dévoilé le jour du mariage !</p>
+    </div>
+</div>
 	
     <!-- Easter eggs : bulles de pensée marié & mariée -->
     <script>
@@ -701,9 +878,78 @@ Des bisous et de l’amour 💖💖💖💖</p>
     })();
     </script>
 
+    <!-- Chat mystère : apparition aléatoire, clic → modal menu -->
+    <script>
+    (function () {
+        const chat  = document.getElementById('chat-mystere');
+        const modal = document.getElementById('modal-mystere');
+        const close = document.getElementById('modal-fermer');
+
+        function placeAuHasard() {
+            const marge = 90;
+            chat.style.left = (marge + Math.random() * (window.innerWidth  - marge * 2)) + 'px';
+            chat.style.top  = (marge + Math.random() * (window.innerHeight - marge * 2)) + 'px';
+        }
+
+        function disparaitre() {
+            chat.classList.remove('visible');
+            setTimeout(apparaitre, 5000 + Math.random() * 7000);
+        }
+
+        function apparaitre() {
+            placeAuHasard();
+            chat.classList.add('visible');
+            setTimeout(disparaitre, 5000 + Math.random() * 5000);
+        }
+
+        // Première apparition après 5 s
+        setTimeout(apparaitre, 5000);
+
+        chat.addEventListener('click', () => {
+            document.getElementById('rsvp').scrollIntoView({ behavior: 'smooth' });
+        });
+        close.addEventListener('click', () => modal.classList.remove('ouvert'));
+        modal.addEventListener('click', e => {
+            if (e.target === modal) modal.classList.remove('ouvert');
+        });
+    })();
+    </script>
+
+    <!-- Lightbox parking -->
+    <div id="lightbox">
+        <img id="lightbox-img" src="" alt="Image agrandie">
+    </div>
+
+    <!-- Lightbox : agrandissement des photos parking -->
+    <script>
+    (function () {
+        const lightbox    = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        document.querySelectorAll('.maps-img').forEach(img => {
+            img.addEventListener('click', () => {
+                lightboxImg.src = img.src;
+                lightboxImg.alt = img.alt;
+                lightbox.classList.add('ouvert');
+            });
+        });
+
+        lightbox.addEventListener('click', () => lightbox.classList.remove('ouvert'));
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') lightbox.classList.remove('ouvert');
+        });
+    })();
+    </script>
+
     <!-- FOOTER -->
     <footer style="padding: 20px; background: #eee;">
-        <p>Merci de faire partie de ce jour spécial 💕</p>
+        <p id="footer-secret" style="cursor: pointer; user-select: none;">Merci de faire partie de ce jour spécial 💕</p>
     </footer>
+    <script>
+    document.getElementById('footer-secret').addEventListener('click', () => {
+        document.getElementById('modal-mystere').classList.add('ouvert');
+    });
+    </script>
 </body>
 </html>
